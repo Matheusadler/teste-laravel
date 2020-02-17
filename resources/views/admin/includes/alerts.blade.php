@@ -1,3 +1,3 @@
 <div class="alert">
-<p>alert - {{ $content }}</p>
+<p>alert - {{ $content ?? ''}}</p>
 </div>

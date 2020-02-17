@@ -5,10 +5,12 @@
 @section('content')
     <h1>Cadastrar Novo Produto</h1>
 
-    <form action="" method="POST">
+<form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+    @csrf 
         <input type="text" name="name" placeholder="Nome">
         <input type="text" name="description" placeholder="Descrição">
-        <button type="submit">Enviar</button>
+        <br><input type="file" name="photo">
+        <br><button type="submit">Enviar</button>
     </form>
     
 @endsection
