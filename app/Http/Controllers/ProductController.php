@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -9,7 +11,7 @@ class ProductController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        // $this->request = $request;
 
         // $this->middleware('auth')->except([ 
         //     'index', 'show'
@@ -22,7 +24,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin/pages/products/index');
+        $products = Product::paginate();
+
+        return view('admin/pages/products/index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -42,8 +48,10 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProductRequest $request)
     {
+
+        dd('ok!');
         if ($request->file('photo')->isValid()) {
             $nameFile = $request->name . '.' . $request->photo->extension();
             dd($request->file('photo')->storeAs('products', $nameFile));
