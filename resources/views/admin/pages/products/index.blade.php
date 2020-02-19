@@ -3,12 +3,10 @@
 
 @section('content')
     <h1>Exibindo os produtos</h1>
-
-<a href="{{ route('products.create') }}">Cadastrar</a>
 <hr>
 
-<table border="1">
-    <thead>
+<table class="table table">
+    <thead class="thead-dark">
         <tr>
             <th>Nome</th>
             <th>Preço</th>
@@ -16,19 +14,21 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody class="table-striped">
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->price }}</td>
                 <td>
-                    <a href="">Detalhes</a>
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">Detalhes</a>
                 </td>
                
             </tr>
         @endforeach
     </tbody>
 </table>
+
+<a href="{{ route('products.create') }}" class="btn btn-primary">Cadastrar</a>
     {!! $products->links() !!}
 
 @endsection

@@ -5,19 +5,30 @@
 @section('content')
     <h1>Cadastrar Novo Produto</h1>
 
-<form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+    @include('admin.includes.alerts')
+
+<form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" class="form">
     @csrf 
-        @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul> 
-        @endif
-        <input type="text" name="name" placeholder="Nome" value="{{ old('name') }}">
-        <input type="text" name="description" placeholder="Descrição" value="{{ old('description') }}">
-        <br><input type="file" name="photo">
-        <br><button type="submit">Enviar</button>
+    @method('POST')
+        <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Nome" value="{{ old('name') }}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="price" class="form-control" placeholder="Preço" value="{{ old('price') }}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="description" class="form-control" placeholder="Descrição" value="{{ old('description') }}">
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="image" class="form-contol">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
     </form>
     
 @endsection

@@ -25,8 +25,9 @@ class StoreUpdateProductRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
-            'photo' => 'required|image'
+            'description' => 'required|min:3|max:10000',
+            'price' => 'required',
+            'image' => 'nullable|image'
         ];
     }
 
@@ -36,8 +37,8 @@ class StoreUpdateProductRequest extends FormRequest
             'name.required' => 'Nome é obrigatório!',
             'name.min' => 'Mínimo de 3 caractéres para o nome!',
             'description.min' => 'Mínimo de 3 caractéres para a descrição!',
-            'photo.required' => 'Upload de foto obrigatória!',
-            'photo.image' => 'Somente upload de imagem!'
+            'image.required' => 'Upload de foto obrigatória!',
+            'image.image' => 'Somente upload de imagem!'
         ];
     }
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $products = Product::orderBy('id', 'desc')->paginate();
 
         return view('admin/pages/products/index', [
             'products' => $products,
@@ -39,7 +39,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin/pages/products/create');
+        return view('admin.pages.products.create');
     }
 
     /**
@@ -50,16 +50,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
+        $data = $request->only('name', 'description', 'price');
 
-        dd('ok!');
-        if ($request->file('photo')->isValid()) {
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile));
-        } else {
-            echo "false";
-            //phpinfo();
-            //dd($request->all());
-        }
+        Product::create($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -70,7 +65,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        if (!$product = Product::find($id)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.products.show', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -104,6 +105,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!$product = Product::find($id)) {
+            return redirect()->back();
+        }else{
+            $product->delete();
+        }
+        return redirect()->route('products.index');
     }
 }
